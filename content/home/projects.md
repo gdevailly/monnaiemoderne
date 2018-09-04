@@ -4,7 +4,7 @@ widget = "projects"
 active = true
 date = 2016-04-20T00:00:00
 
-title = "Projects"
+title = "Projets"
 subtitle = ""
 
 # Order that this section will appear in.
@@ -13,7 +13,7 @@ weight = 50
 # Content.
 # Display content from the following folder.
 # For example, `folder = "project"` displays content from `content/project/`.
-folder = "project"
+folder = "projet"
 
 # View.
 # Customize how projects are displayed.
@@ -30,16 +30,16 @@ filter_default = 0
 # To filter by a specific tag, set `tag` to an existing tag name.
 # To remove toolbar, delete/comment all instances of `[[filter]]` below.
 [[filter]]
-  name = "All"
+  name = "Tous"
   tag = "*"
 
 [[filter]]
-  name = "Deep Learning"
-  tag = "Deep Learning"
+  name = "Théorie monétaire moderne"
+  tag = "MMT"
 
 [[filter]]
-  name = "Other"
-  tag = "Demo"
+  name = "Autres"
+  tag = "autre"
 
 +++
 

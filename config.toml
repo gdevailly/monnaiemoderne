@@ -34,7 +34,7 @@ hasCJKLanguage = false  # Set `true` for Chinese/Japanese/Korean languages.
 defaultContentLanguageInSubdir = false
 
 # Get last modified date for content from Git?
-enableGitInfo = true
+enableGitInfo = false
 
 [outputs]
   home = [ "HTML", "CSS", "RSS", "search" ]
@@ -234,12 +234,12 @@ enableGitInfo = true
   [[params.social]]
     icon = "twitter"
     icon_pack = "fa"
-    link = "https://twitter.com/G_Devailly
+    link = "https://twitter.com/G_Devailly"
 
   [[params.social]]
     icon = "github"
     icon_pack = "fa"
-    link = "//github.com/gcushen"
+    link = "https://github.com/gdevailly/monnaiemoderne"
 
   # Link to a PDF of your resume/CV from the About widget.
   # To enable, copy your resume/CV to `static/files/cv.pdf` and uncomment the lines below.
@@ -258,18 +258,24 @@ enableGitInfo = true
 
 [[menu.main]]
   name = "Accueil"
-  url = "#about"
+  url = ""
   weight = 1
-
+  
 [[menu.main]]
-  name = "A propos"
-  url = "#publications_selected"
+  name = "Tout les billets"
+  url = "/billet/"
   weight = 2
 
 [[menu.main]]
-  name = "Rechercher"
-  url = "#search"
+  name = "A propos"
+  url = "/a-propos/"
   weight = 3
+
+[[menu.main]]
+  name = "Rechercher"
+  url = "#rechercher"
+  weight = 4
+  
 
 # Link to a PDF of your resume/CV from the menu.
 # To enable, copy your resume/CV to `static/files/cv.pdf` and uncomment the lines below.

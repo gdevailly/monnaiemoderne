@@ -1,0 +1,91 @@
+---
+title: L'approche comptable
+author: Guillaume Devailly
+date: '2018-08-25'
+slug: l-approche-comptable
+categories: []
+tags:
+  - théorie monétaire moderne
+  - comptabilité nationale
+  - MMT
+header:
+  caption: ''
+  image: ''
+type: "post"
+output: 
+  html_document:
+    code_folding: hide
+---
+
+Le secteur publique Français est en déficit budgétaire depuis au moins les années 1980.
+Chaque année, l'état doit donc s'endéter, de plus en plus, pour faire face à ses dépenses.
+Conséquence direct : la dette publique explose.
+
+```{r deficitanddebt, echo=FALSE, warning=FALSE, message=FALSE}
+library(tidyverse)
+library(eurostat)
+govdebt <- get_eurostat("gov_10dd_edpt1") %>% # found with search_eurostat("deficit")
+    filter(geo == "FR", unit == "PC_GDP") %>% # France, in %GDP 
+    select(-unit) %>%
+    label_eurostat()
+
+# deficit plot
+frdeficit <- govdebt %>%
+    filter(na_item == "Net lending (+) /net borrowing (-)", sector == "General government")
+
+pldeficit <- ggplot(frdeficit, aes(x = time, y = values)) +
+    geom_ribbon(aes(ymin = 0, ymax = values), fill = "#FF707070") +
+    geom_hline(yintercept = 0, linetype = "dashed") +
+    geom_line(size = 1.5, color = "darkred") +
+    labs(x = NULL, y = "%PIB", title = "Déficit budgétaire français") +
+    theme_bw(base_size = 14)
+
+# debt plot
+frdebt <- govdebt %>%
+    filter(na_item == "Government consolidated gross debt", sector == "General government")
+
+pldebt <- ggplot(frdebt, aes(x = time, y = values)) +
+    geom_ribbon(aes(ymin = 0, ymax = values), fill = "#70007070") +
+    geom_hline(yintercept = 0, linetype = "dashed") +
+    geom_line(size = 1.5, color = "#700070") +
+    labs(x = NULL, y = "%PIB", title = "Dette publique française", caption = "Données eurostat") +
+    theme_bw(base_size = 14)
+
+cowplot::plot_grid(pldeficit, pldebt, ncol = 1)
+```
+
+```{r deficitanddebt, eval=FALSE}
+```
+
+Il semble donc urgent de réduire les dépenses de l'état, augemnter ses recettes,
+afin commencer à rembourser une dette que nous ne voulons pas laisser cette dette à nos petits enfants.
+Sinon, *la dette se vengera* !
+
+<blockquote class="twitter-tweet" data-lang="fr"><p lang="fr" dir="ltr">&quot;La dette se vengera&quot; si le gouvernement ne gagne pas &quot;la bataille du désendettement&quot;, met en garde Pierre Moscovici<a href="https://t.co/c20qHKATVd">https://t.co/c20qHKATVd</a> <a href="https://t.co/wadGpfaiI4">pic.twitter.com/wadGpfaiI4</a></p>&mdash; franceinfo (@franceinfo) <a href="https://twitter.com/franceinfo/status/1032568130403479553?ref_src=twsrc%5Etfw">23 août 2018</a></blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+---
+
+Il est assez facile de dénoncer l'hypocrisie de tels propos. Les personnes scandalisées par des niveaux de
+déficits publiques excessifs "hypothétiquant l'avenir de leurs enfants"" sont souvent beaucoup moins angoissées
+en ce qui concerne le réchaufement climatique, danger pourtant plus concret et menaçant.
+Curieusement, ces même personnes ne se scandalisent pas pareil lorsqu'il s'agit de combler
+le déficit de la sécu que lorsqu'il s'agit de suprimer l'impôt sur la fortune ou de réduire la fiscalité du travail.
+
+Il n'empèche, ce discours de réduction des déficits garde un pouvoir de persuation, il semble rationelle, de bon sens.
+S'assurer de gagner suffisament d'argent pour pouvoir couvrir ces dépenses, n'est-ce pas là un principe de bonne gestion, après tout ?
+
+---
+
+La théorie monétaire moderne (Modern Monetary Theory, MMT en anglais, parfois aussi appelée neochartalisme) constitut un cadre
+théorique puissant et cohérant dénonssant l'inepsie d'un tel raisonement. Elle explicite le fait que le gouvernement, 
+en tant qu'autorité ultime garantissant le sytéme monétaire de son pays, n'est pas soumis aux même contraintes qu'un ménage ou qu'une entreprise.
+
+Il s'agit d'un théorie au sens scientifique, un cadre de pensée expliquant le réel, et non pas d'une "théorie" au sens policier, une simple
+hypothèse de travail. Contrairement à d'autres théories scientifiques, tels que la théorie quantique en physique ou la théorie neo-darwiniene
+de l'évolultion en biologie, la théorie monétaire moderne reste marginale dans son domaine. Elle n'en reste pas moins rigoureuse, appuyé par
+un large corpus académique produit par des universitaires reconnus, tels que Randal Wray, Bill Mitchel ou Stephanie Kelton.
+Un deuxiéme congrés international de la théorie monétaire moderne est organisé à l'automne. Un text-book est disponible, et il sera bientôt
+complété.
+
+
