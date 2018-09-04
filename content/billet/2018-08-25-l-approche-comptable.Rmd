@@ -15,6 +15,7 @@ type: "post"
 output: 
   html_document:
     code_folding: hide
+math: true
 ---
 
 Le secteur publique Français est en déficit budgétaire depuis au moins les années 1980.
@@ -88,4 +89,30 @@ un large corpus académique produit par des universitaires reconnus, tels que Ra
 Un deuxiéme congrés international de la théorie monétaire moderne est organisé à l'automne. Un text-book est disponible, et il sera bientôt
 complété.
 
+---
 
+Ce premier billet, introductif, et donc incomplet et simplificateur, vous propose d'établir une compatibilité nationale 
+pour en déduire une vérité toute bête : l'argent dépensé par le gouvernement, mais non récupéré via les taxes est impôts,
+cet argent constituant précisément le déficit publiqe, où finit-il ?
+
+Prenons l'exemple d'un pays seul utilisateur de sa monnaie, pour commencer en douceur, tels que la Pologne.
+La monnaie polonaise, le Zloty, est soit dans le secteur privé domestique (particuliers),
+soit dans le secteur publique (l'état polonais), soit à l'étranger.
+Les entreprises étant possédés pour partie par les polonnais, pour partie par l'état polonnais, pour partie
+par des particuliers ou gouvernements étrangers, leurs avoir monétaires sont donc répartie dans les trois catégories
+définies précédements.
+
+Ainsi :
+
+$$ secteur\ publique + secteur\ privé + secteur\ étranger = masse\ monétaire\ totale $$
+
+D'un an sur l'autre, le secteur publique à des dépenses (budget) et des recettes (taxes, impots),
+le secteur privé à des dépenses et des recettes, et il en va de même pour le secteur étranger. Notons
+$\Delta$ le différentielle entre gains et pertes de chaque secteur :
+
+$$ \Delta secteur\ publique + \Delta secteur\ privé + \Delta secteur\ étranger = \Delta masse\ monétaire\ totale $$
+
+En partant du principe que l'argent *ne sort pas de nul part* (nous y reviendrons) :
+$$ \Delta secteur\ publique + \Delta secteur\ privé + \Delta secteur\ étranger = 0$$
+
+Le secteur privé dans sont ensemble à tendances à vouloir s'enrichir. 
