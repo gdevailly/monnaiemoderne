@@ -39,6 +39,7 @@ pldeficit <- ggplot(frdeficit, aes(x = time, y = values)) +
     geom_hline(yintercept = 0, linetype = "dashed") +
     geom_line(size = 1.5, color = "darkred") +
     labs(x = NULL, y = "%PIB", title = "Déficit budgétaire français") +
+    coord_cartesian(ylim = c(-8, 2)) +
     theme_bw(base_size = 14)
 
 # debt plot
@@ -50,12 +51,10 @@ pldebt <- ggplot(frdebt, aes(x = time, y = values)) +
     geom_hline(yintercept = 0, linetype = "dashed") +
     geom_line(size = 1.5, color = "#700070") +
     labs(x = NULL, y = "%PIB", title = "Dette publique française", caption = "Données eurostat") +
+    coord_cartesian(ylim = c(-10, 110)) +
     theme_bw(base_size = 14)
 
 cowplot::plot_grid(pldeficit, pldebt, ncol = 1)
-```
-
-```{r deficitanddebt, eval=FALSE}
 ```
 
 Il semble donc urgent de réduire les dépenses de l'état, augemnter ses recettes,
@@ -68,23 +67,26 @@ Sinon, *la dette se vengera* !
 ---
 
 Il est assez facile de dénoncer l'hypocrisie de tels propos. Les personnes scandalisées par des niveaux de
-déficits publiques excessifs "hypothétiquant l'avenir de leurs enfants"" sont souvent beaucoup moins angoissées
+déficits publiques excessifs "hypothétiquant l'avenir de leurs enfants" sont souvent beaucoup moins angoissées
 en ce qui concerne le réchaufement climatique, danger pourtant plus concret et menaçant.
-Curieusement, ces même personnes ne se scandalisent pas pareil lorsqu'il s'agit de combler
-le déficit de la sécu que lorsqu'il s'agit de suprimer l'impôt sur la fortune ou de réduire la fiscalité du travail.
+Curieusement aussi, ces même personnes ne se scandalisent pas pareil
+lorsqu'il s'agit de suprimer l'impôt sur la fortune ou de réduire la fiscalité du travail 
+que lorsqu'il s'agit de combler le déficit de la sécu ou des caisses de retraites.
 
-Il n'empèche, ce discours de réduction des déficits garde un pouvoir de persuation, il semble rationelle, de bon sens.
-S'assurer de gagner suffisament d'argent pour pouvoir couvrir ces dépenses, n'est-ce pas là un principe de bonne gestion, après tout ?
+Malgrés ces hypocrisies, ce discours de réduction des déficits garde un pouvoir de persuation : il semble rationelle, de bon sens.
+S'assurer, au long terme, de gagner suffisament d'argent pour pouvoir couvrir ses dépenses, 
+n'est-ce pas là un principe de bonne gestion, après tout ?
 
 ---
 
 La théorie monétaire moderne (Modern Monetary Theory, MMT en anglais, parfois aussi appelée neochartalisme) constitut un cadre
-théorique puissant et cohérant dénonssant l'inepsie d'un tel raisonement. Elle explicite le fait que le gouvernement, 
-en tant qu'autorité ultime garantissant le sytéme monétaire de son pays, n'est pas soumis aux même contraintes qu'un ménage ou qu'une entreprise.
+théorique puissant et cohérant dénonçant l'inepsie de tels raisonements alarmistes et fétichistes sur les niveaux de dettes publiques.
+Elle explicite le fait que le gouvernement, en tant qu'autorité ultime garantissant le sytéme monétaire de son pays,
+n'est pas soumis aux même contraintes financières qu'un ménage ou qu'une entreprise.
 
 Il s'agit d'un théorie au sens scientifique, un cadre de pensée expliquant le réel, et non pas d'une "théorie" au sens policier, une simple
 hypothèse de travail. Contrairement à d'autres théories scientifiques, tels que la théorie quantique en physique ou la théorie neo-darwiniene
-de l'évolultion en biologie, la théorie monétaire moderne reste marginale dans son domaine. Elle n'en reste pas moins rigoureuse, appuyé par
+de l'évolultion en biologie, la théorie monétaire moderne reste marginale dans son domaine. Elle n'en reste pas moins rigoureuse, appuyée par
 un large corpus académique produit par des universitaires reconnus, tels que Randal Wray, Bill Mitchel ou Stephanie Kelton.
 Un deuxiéme congrés international de la théorie monétaire moderne est organisé à l'automne. Un text-book est disponible, et il sera bientôt
 complété.
@@ -95,7 +97,7 @@ Ce premier billet, introductif, et donc incomplet et simplificateur, vous propos
 pour en déduire une vérité toute bête : l'argent dépensé par le gouvernement, mais non récupéré via les taxes est impôts,
 cet argent constituant précisément le déficit publiqe, où finit-il ?
 
-Prenons l'exemple d'un pays seul utilisateur de sa monnaie, pour commencer en douceur, tels que la Pologne.
+Prenons l'exemple d'un pays seul utilisateur de sa monnaie, pour commencer en douceur, tels que, par exemple, la Pologne.
 La monnaie polonaise, le Zloty, est soit dans le secteur privé domestique (particuliers),
 soit dans le secteur publique (l'état polonais), soit à l'étranger.
 Les entreprises étant possédés pour partie par les polonnais, pour partie par l'état polonnais, pour partie
@@ -115,4 +117,51 @@ $$ \Delta secteur\ publique + \Delta secteur\ privé + \Delta secteur\ étranger
 En partant du principe que l'argent *ne sort pas de nul part* (nous y reviendrons) :
 $$ \Delta secteur\ publique + \Delta secteur\ privé + \Delta secteur\ étranger = 0$$
 
-Le secteur privé dans sont ensemble à tendances à vouloir s'enrichir. 
+-----
+
+Il s'agit là d'une vérité comptable, vérifiable et vérifié. Par exemple, en ce qui concerne les Etats-Unis d'Amériques
+(d'après des données de la *FRED* de [Saint-Louis](https://fred.stlouisfed.org/graph/?graph_id=480953))
+
+```{sectorialusa, echo=FALSE, warning=FALSE, message=FALSE}
+sector_usa <- read_csv("fredgraph.csv")
+colnames(sector_usa) <- c("date", "private", "foreign", "publique") # renaming coloumns
+sector_usa <- gather(sector_usa, key = "sector", value = "pctPIB", -date) # tidying
+ggplot(sector_usa, aes(x = date, y = pctPIB, fill = sector)) + # ploting
+    geom_area() +
+    geom_hline(yintercept = 0, linetype = "dashed") +
+    scale_fill_viridis_d(labels = c("étranger", "privé", "publique")) + 
+    labs(x = NULL, y = "%PIB", title = "Balances sectorielles, USA", caption = "Données FRED St Louis", fill = "Secteur :") +
+    theme_bw(base_size = 14)
+
+```
+
+Ou bien, pour le Royaume-Unis, d'après le trés officiel
+[rapport](http://obr.uk/efo/economic-fiscal-outlook-march-2018/) *Economic and fiscal outlook* de l'office 
+pour la responsabilité budgétaire :
+![Balances sectorielles du Royaume-Uni](/billet/2018-08-25-l-approche-comptable_files/obr_2018.png)
+(Avec: *public* = secteur publique, *households* + *Corporate* = secteur privé, *rest of world* = secteur étranger,
+discrepency = anomalies résiduelles liés aux érreures d'éstimations.)
+
+-----
+
+La conséquence directe de cette vérité comptable, c'est que pour qu'un des secteurs puisse être positif,
+il en faudra nécéssairement un qui soit négatif.
+
+Le secteur privé a souvent le désir d'accroître sa richesse au court du temps :
+pour que les ménages et entreprises soient satisfaits, ils souhaitent finir l'année un peu plus riche
+qu'ils ne l'ont commencé.
+
+Le cas du secteur étranger est un peu particulier. Il est généralement souhaitable qu'il soit équilibré, 
+donc proche de 0 à terme (nous aurrons l'occasion de revenir dessus, notament dans le cas de l'Allemagne).
+Un des arguments à cela est qu'il ne peut, dans le monde, n'y avoir uniquement des pays exportateurs net, il en faudra 
+a minima un qui soit importateur net !
+
+Si donc, dans le cas idéal, le secteur étranger est à l'équilibre, le secteur privé est en léger excédent pour
+assouvir son envie d'enrichissement, il en suit que le secteur publique devra-être déficitaire.
+
+Pour le dire autrement, imposer un excédant budgétaire publique ce fera nécéssairement au dépend du secteur étranger et/ou privé.
+
+Si on suppose un secteur étranger à l'équilibre, un excédent budgétaire publique passe par l'apauvrissement (monétaire) de la population. Ce n'est sans doute pas là une sage décision de gouvernance.
+
+
+
