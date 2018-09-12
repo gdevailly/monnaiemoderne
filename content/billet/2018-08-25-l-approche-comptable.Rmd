@@ -1,9 +1,9 @@
 ---
 title: L'approche comptable
-author: Guillaume Devailly
+authors: 
+  - Guillaume Devailly
 date: '2018-08-25'
 slug: l-approche-comptable
-categories: []
 tags:
   - théorie monétaire moderne
   - comptabilité nationale
@@ -140,8 +140,7 @@ Ou bien, pour le Royaume-Unis, d'après le trés officiel
 pour la responsabilité budgétaire :
 ![Balances sectorielles du Royaume-Uni](/billet/2018-08-25-l-approche-comptable_files/obr_2018.png)
 (Avec: *public* = secteur publique, *households* + *Corporate* = secteur privé, *rest of world* = secteur étranger,
-discrepency = anomalies résiduelles liés aux érreures d'éstimations.)
-
+*discrepency* = anomalies résiduelles liés aux érreures d'éstimations.)
 -----
 
 La conséquence directe de cette vérité comptable, c'est que pour qu'un des secteurs puisse être positif,

@@ -1,3 +1,13 @@
 body {
 	text-align: justify;
 }
+
+.article-container {
+  max-width: 850px;
+}
+
+.article-style img,
+.article-style video {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
